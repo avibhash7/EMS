@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-
 //Service Layer
+import java.util.ArrayList;
 
 public class Service {
 
@@ -14,7 +13,7 @@ public class Service {
 	}
 	
 	public static void outputEmp() {
-		 Data.read();
+		Data.read();
 	}
 	
 	public static void updateEmp(String id) {
