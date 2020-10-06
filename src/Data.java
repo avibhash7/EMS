@@ -2,17 +2,26 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+public class Data {
 
-public class DataStore {
-
-    Scanner s = new Scanner(System.in);
-    ArrayList<Employee> list = new ArrayList<>();
-    String id, name, role;
-
-    public void inputDetails() {
-        System.out.println("Enter Employee ID:");
-        id = s.nextLine();
-        Employee emp = new Employee();
+    static Scanner s = new Scanner(System.in);
+    static ArrayList<Employee> list = new ArrayList<>();
+    
+    public static void create(String id) {
+    	Employee emp = new Employee();
+    	String name, role;
+    	System.out.println("Enter Employee Name:");
+        name = s.nextLine();
+        System.out.println("Enter Role:");
+        role = s.nextLine();
+        emp.setId(id);
+		emp.setName(name);
+		emp.setRole(role);
+    	list.add(emp);
+    }
+    
+    public static boolean checkDuplicate(String id) {
+    	Employee emp = new Employee();
         for(Employee e: list) {
             if(e.getId().equals(id)) {
                 emp=e;
@@ -20,30 +29,23 @@ public class DataStore {
             }
         }
         if(list.contains(emp)) {
-            System.out.println("Employee with this ID already exists!");
-            return;
+       	 System.out.println("This Employee ID already exists.");
+            return false;
         }
         else {
-            emp.setId(id);
-        }
-        System.out.println("Enter Employee Name:");
-        name = s.nextLine();
-        emp.setName(name);
-        System.out.println("Enter Role:");
-        role = s.nextLine();
-        emp.setRole(role);
-        list.add(new Employee(id, name, role));
-    }
+       	  return true;
+        }	
+	}
 
-    public void outputDetails() {
-        System.out.println("\nID **** NAME **** ROLE\n");
+    public static void read() {
+    	System.out.println("\nID **** NAME **** ROLE\n");
         for (Employee e : list) {
             System.out.println(e.getId()+" **** "+e.getName()+" **** "+e.getRole());
         }
         System.out.println();
     }
 
-    public void searchById(String id) {
+    public static void searchById(String id) {
         System.out.println("\nID **** NAME **** ROLE\n");
         for (Employee e : list) {
             if(e.getId().equals(id)) {
@@ -52,7 +54,7 @@ public class DataStore {
         }
     }
 
-    public void searchByName(String name) {
+    public static void searchByName(String name) {
         System.out.println("\nID **** NAME **** ROLE\n");
         for (Employee e : list) {
             if(e.getName().equals(name)) {
@@ -61,28 +63,24 @@ public class DataStore {
         }
     }
 
-    public void updateDetails(String id) {
-        String newId, newName, newRole;
+    public static void update(String id) {
+        String newName, newRole;
         for (Employee e : list) {
             if(e.getId().equals(id)) {
-                //searchById(id);
                 int index = list.indexOf(e);
                 System.out.println("Enter new details:");
-                //inputDetails();
-                System.out.println("Enter Employee ID:");
-                newId = s.nextLine();
                 System.out.println("Enter Employee Name:");
                 newName = s.nextLine();
                 System.out.println("Enter Role:");
                 newRole = s.nextLine();
-                Employee newEmp = new Employee(newId, newName, newRole);
+                Employee newEmp = new Employee(id, newName, newRole);
                 list.set(index, newEmp);
                 System.out.println("Record updated Successfully!");
             }
         }
     }
 
-    public void deleteDetails(String id) {
+    public static void delete(String id) {
         int index = 0;
         for (Employee e : list) {
             if(e.getId().equals(id)) {
