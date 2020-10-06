@@ -14,6 +14,7 @@ public class Main {
         System.out.println("*****-you manage your work, we will manage your data ;)\n");
         do {
             System.out.println("Make a Choice:");
+            System.out.println("Your choice");
             System.out.println("1. Add Employee details");
             System.out.println("2. Show details of all the employees");
             System.out.println("3. Search for an Employee");
