@@ -1,1 +1,6 @@
 .idea/
+out/
+.classpath
+.gitignore
+.projecy
+EMS_Layered.iml
