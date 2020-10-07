@@ -13,9 +13,9 @@ public class Presentation {
         String name, role;
         System.out.println("\n\n*******************************************************");
         System.out.println("***************EMPLOYEE MANAGEMENT SYSTEM**************");
-        System.out.println("*****-you manage your work, we will manage your data ;)\n");
+        System.out.println("*****-you manage your work, we will manage your data ;)");
         do {
-        System.out.println("Make a Choice:");
+        System.out.println("\nMake a Choice:");
         System.out.println("1. Add Employee details");
         System.out.println("2. Show details of all the employees");
         System.out.println("3. Search for an Employee");
@@ -30,11 +30,22 @@ public class Presentation {
             case 1: {
             	System.out.println("Enter Employee ID:");
                 id = s.nextLine();
-                Service.inputEmp(id);
+                if(empService.check(id)==false) {
+                    System.out.println("This Employee ID already exists.");
+                }
+                else {
+                    System.out.println("Enter Employee Name:");
+                    name = s.nextLine();
+                    System.out.println("Enter Role:");
+                    role = s.nextLine();
+                    System.out.println();
+                    empService.inputEmp(id, name, role);
+                }
             }
             	break;
             case 2: {
-                Service.outputEmp();
+                System.out.println("\nID **** NAME **** ROLE\n");
+                empService.outputEmp();
                 break;
             }
             case 3: {
@@ -47,13 +58,13 @@ public class Presentation {
                     case 1: {
                         System.out.println("Enter the Employee ID to be searched:");
                         id = s.nextLine();
-                        Service.searchEmpById(id);
+                        empService.searchEmpById(id);
                         break;
                     }
                     case 2: {
                         System.out.println("Enter the Employee name to be searched:");
                         name = s.nextLine();
-                        Service.searchEmpByName(name);
+                        empService.searchEmpByName(name);
                         break;
                     }
                     default: {
@@ -65,13 +76,13 @@ public class Presentation {
             case 4: {
                 System.out.println("Enter the Employee ID whose record is to be updated:");
                 id = s.nextLine();
-                Service.updateEmp(id);
+                empService.updateEmp(id);
                 break;
             }
             case 5: {
                 System.out.println("Enter the Employee ID whose record is to be deleted:");
                 id = s.nextLine();
-                Service.deleteEmp(id);
+                empService.deleteEmp(id);
                 break;
             }
             case 6: {

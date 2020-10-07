@@ -1,34 +1,101 @@
 //Service Layer
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Service {
 
-	static ArrayList<Employee> list = new ArrayList<>();
+	Data empData = new Data();
+	static ArrayList<Employee> list;
+	Scanner s = new Scanner(System.in);
 	
-	public static void inputEmp(String id) {
-		if(Data.checkDuplicate(id)==false)
-			return;
-		else
-			Data.create(id);
+	public boolean check(String id) {
+		if(empData.checkDuplicate(id)==false) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
-	public static void outputEmp() {
-		Data.read();
+	public void inputEmp(String id, String name, String role) {
+		Employee emp = new Employee(id, name, role);
+		empData.create(emp);
 	}
 	
-	public static void updateEmp(String id) {
-		Data.update(id);
+	public void outputEmp() {
+		System.out.println("\nID **** NAME **** ROLE\n");
+		list = empData.read();
+		for (Employee e : list) {
+			System.out.println(e.getId() + " **** " + e.getName() + " **** " + e.getRole());
+		}
 	}
 	
-	public static void deleteEmp(String id) {
-		Data.delete(id);
+	public void updateEmp(String id) {
+		list = empData.read();
+		String newName, newRole;
+		int index = 0;
+		for (Employee e : list) {
+			if(e.getId().equals(id)) {
+				index = list.indexOf(e);
+				System.out.println("Enter new details:");
+				System.out.println("Enter Employee Name:");
+				newName = s.nextLine();
+				System.out.println("Enter Role:");
+				newRole = s.nextLine();
+				Employee newEmp = new Employee(id, newName, newRole);
+				empData.update(index, newEmp);
+				System.out.println("Record updated Successfully!");
+			}
+		}
+		if(index == 0) {
+			System.out.println("Record not found!");
+		}
 	}
 	
-	public static void searchEmpById(String id) {
-		Data.searchById(id);
+	public void deleteEmp(String id) {
+		list = empData.read();
+		int index = 0;
+		for (Employee e : list) {
+			if(e.getId().equals(id)) {
+				index = list.indexOf(e);
+				//empData.delete(index);
+				list.remove(index);
+				System.out.println("Record deleted successfully!");
+			}
+		}
+		if(index == 0) {
+			System.out.println("Record not found!");
+		}
 	}
 	
-	public static void searchEmpByName(String name) {
-		Data.searchByName(name);
+	public void searchEmpById(String id) {
+		list = empData.read();
+		int index = 0;
+		for (Employee e : list) {
+			if(e.getId().equals(id)) {
+				index = 1;
+				System.out.println("\nID **** NAME **** ROLE\n");
+				System.out.println(e.getId() + " **** " + e.getName() + " **** " + e.getRole());
+			}
+		}
+		if(index == 0) {
+			System.out.println("Record not found!");
+		}
+	}
+	
+	public void searchEmpByName(String name) {
+		list = empData.read();
+		int index = 0;
+		for (Employee e : list) {
+			if(e.getName().equals(name)) {
+				index = 1;
+				System.out.println("\nID **** NAME **** ROLE\n");
+				System.out.println(e.getId() + " **** " + e.getName() + " **** " + e.getRole());
+			}
+		}
+		if(index ==0) {
+			System.out.println("Record not found!");
+		}
 	}
 }
+
