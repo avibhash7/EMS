@@ -13,6 +13,14 @@ public class Data {
         return list;
     }
 
+    public void update(int index, Employee newEmp) {
+        list.set(index, newEmp);
+    }
+
+    public void delete(int index) {
+        list.remove(index);
+    }
+
     public boolean checkDuplicate(String id) {
     	Employee emp = new Employee();
         for(Employee e: list) {
@@ -28,12 +36,4 @@ public class Data {
        	  return true;
         }
 	}
-
-    public void update(int index, Employee newEmp) {
-        list.set(index, newEmp);
-    }
-
-    /*public void delete(int index) {
-        list.remove(index);
-    }*/
 }

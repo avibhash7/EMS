@@ -54,16 +54,17 @@ public class Service {
 	
 	public void deleteEmp(String id) {
 		list = empData.read();
-		int index = 0;
+		int found = 0;
 		for (Employee e : list) {
 			if(e.getId().equals(id)) {
-				index = list.indexOf(e);
-				//empData.delete(index);
-				list.remove(index);
+				int index = list.indexOf(e);
+				found = 1;
+				empData.delete(index);
 				System.out.println("Record deleted successfully!");
+				break;
 			}
 		}
-		if(index == 0) {
+		if(found == 0) {
 			System.out.println("Record not found!");
 		}
 	}
