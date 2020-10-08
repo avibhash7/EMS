@@ -1,15 +1,16 @@
 //Data Interface
+
 import java.util.ArrayList;
 
 public interface Data {
 
-	    public void create(Employee emp);
+	public void create(Employee emp);
 
-	    public ArrayList<Employee> read();
-	    
-	    public void update(int index, Employee newEmp);
+	public ArrayList<Employee> read();
 
-	    public void delete(int index);
+	public void update(int index, Employee newEmp);
 
-	    public boolean checkDuplicate(String id);
+	public void delete(int index);
+
+	public boolean checkDuplicate(String id);
 }
