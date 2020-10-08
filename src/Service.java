@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Service {
 
-	Data empData = new Data();
+	DataArrayList empData = new DataArrayList();
 	static ArrayList<Employee> list;
 	Scanner s = new Scanner(System.in);
 	
@@ -25,8 +25,8 @@ public class Service {
 	public void outputEmp() {
 		System.out.println("\nID **** NAME **** ROLE\n");
 		list = empData.read();
-		for (Employee e : list) {
-			System.out.println(e.getId() + " **** " + e.getName() + " **** " + e.getRole());
+		for (Employee employee : list) {
+			System.out.println(employee.getId() + " **** " + employee.getName() + " **** " + employee.getRole());
 		}
 	}
 	
@@ -55,9 +55,9 @@ public class Service {
 	public void deleteEmp(String id) {
 		list = empData.read();
 		int found = 0;
-		for (Employee e : list) {
-			if(e.getId().equals(id)) {
-				int index = list.indexOf(e);
+		for (Employee employee : list) {
+			if(employee.getId().equals(id)) {
+				int index = list.indexOf(employee);
 				found = 1;
 				empData.delete(index);
 				System.out.println("Record deleted successfully!");
@@ -72,11 +72,11 @@ public class Service {
 	public void searchEmpById(String id) {
 		list = empData.read();
 		int index = 0;
-		for (Employee e : list) {
-			if(e.getId().equals(id)) {
+		for (Employee employee : list) {
+			if(employee.getId().equals(id)) {
 				index = 1;
 				System.out.println("\nID **** NAME **** ROLE\n");
-				System.out.println(e.getId() + " **** " + e.getName() + " **** " + e.getRole());
+				System.out.println(employee.getId() + " **** " + employee.getName() + " **** " + employee.getRole());
 			}
 		}
 		if(index == 0) {
@@ -87,11 +87,11 @@ public class Service {
 	public void searchEmpByName(String name) {
 		list = empData.read();
 		int index = 0;
-		for (Employee e : list) {
-			if(e.getName().equals(name)) {
+		for (Employee employee : list) {
+			if(employee.getName().equals(name)) {
 				index = 1;
 				System.out.println("\nID **** NAME **** ROLE\n");
-				System.out.println(e.getId() + " **** " + e.getName() + " **** " + e.getRole());
+				System.out.println(employee.getId() + " **** " + employee.getName() + " **** " + employee.getRole());
 			}
 		}
 		if(index ==0) {
