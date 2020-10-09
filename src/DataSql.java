@@ -43,8 +43,8 @@ public class DataSql {
 			System.out.println("\nID **** NAME **** ROLE\n");
 
 			while (result.next()) {
-				System.out.println(result.getNString("id") + " **** " + result.getNString("name") + " **** "
-						+ result.getNString("role"));
+				System.out.println(result.getString("id") + " **** " + result.getString("name") + " **** "
+						+ result.getString("role"));
 			}
 
 		} catch (SQLException exc) {
@@ -99,8 +99,8 @@ public class DataSql {
 			ResultSet result = statement.executeQuery(sql);
 
 			while (result.next()) {
-				System.out.println(result.getNString("id") + " **** " + result.getNString("name") + " **** "
-						+ result.getNString("role"));
+				System.out.println(result.getString("id") + " **** " + result.getString("name") + " **** "
+						+ result.getString("role"));
 			}
 
 		} catch (SQLException exc) {
@@ -117,8 +117,8 @@ public class DataSql {
 			ResultSet result = statement.executeQuery(sql);
 
 			while (result.next()) {
-				System.out.println(result.getNString("id") + " **** " + result.getNString("name") + " **** "
-						+ result.getNString("role"));
+				System.out.println(result.getString("id") + " **** " + result.getString("name") + " **** "
+						+ result.getString("role"));
 			}
 
 		} catch (SQLException exc) {
