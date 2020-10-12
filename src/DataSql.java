@@ -9,12 +9,17 @@ import java.sql.Statement;
 
 public class DataSql {
 
+	
+	DbConnection empConnect = new DbConnection();
+	
 	String dbURL = "jdbc:mysql://localhost:3307/demo";
 	String username = "root";
 	String password = "AviHoney";
 
-	public void create(Employee emp) {
-		try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+	public void create(Employee emp) throws SQLException{
+		
+		Connection conn = empConnect.getConn();
+			
 			String sql = "INSERT INTO employees (id, name, role) VALUES (?, ?, ?)";
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -26,14 +31,13 @@ public class DataSql {
 			if (rowsInserted > 0) {
 				System.out.println("Record added successfully!");
 			}
-		} catch (SQLException exc) {
-			exc.printStackTrace();
-		}
 
 	}
 
-	public void read() {
-		try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+	public void read()  throws SQLException {
+			
+			Connection conn = empConnect.getConn();
+		
 			String sql = "select * from employees";
 
 			Statement statement = conn.createStatement();
@@ -46,10 +50,6 @@ public class DataSql {
 				System.out.println(result.getString("id") + " **** " + result.getString("name") + " **** "
 						+ result.getString("role"));
 			}
-
-		} catch (SQLException exc) {
-			exc.printStackTrace();
-		}
 	}
 
 	public void update(String id, String name, String role) {

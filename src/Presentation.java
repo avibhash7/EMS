@@ -1,12 +1,14 @@
 //Presentation Layer
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Presentation {
 
-	public static void Menu() {
+	public static void Menu() throws SQLException {
 
 		Service empService = new Service();
+		@SuppressWarnings("resource")
 		Scanner s = new Scanner(System.in);
 		int choice;
 		String id;

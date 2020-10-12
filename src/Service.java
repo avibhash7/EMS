@@ -1,5 +1,6 @@
 //Service Layer
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Service {
@@ -18,16 +19,16 @@ public class Service {
 		}
 	}
 
-	public void inputEmp(String id, String name, String role) {
+	public void inputEmp(String id, String name, String role) throws SQLException {
 		Employee emp = new Employee(id, name, role);
 		empSql.create(emp);
 	}
 
-	public void outputEmp() {
+	public void outputEmp() throws SQLException {
 		empSql.read();
 	}
 
-	public void updateEmp(String id) {
+	public void updateEmp(String id) throws SQLException {
 		String newName, newRole;
 		System.out.println("Enter new details:");
 		System.out.println("Enter Employee Name:");
@@ -37,15 +38,15 @@ public class Service {
 		empSql.update(id, newName, newRole);
 	}
 
-	public void deleteEmp(String id) {
+	public void deleteEmp(String id) throws SQLException {
 		empSql.delete(id);
 	}
 
-	public void searchEmpById(String id) {
+	public void searchEmpById(String id) throws SQLException {
 		empSql.searchById(id);
 	}
 
-	public void searchEmpByName(String name) {
+	public void searchEmpByName(String name) throws SQLException {
 		empSql.searchByName(name);
 	}
 }
