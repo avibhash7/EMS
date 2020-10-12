@@ -24,10 +24,14 @@ public class Service {
 		empSql.create(emp);
 	}
 
-	public void outputEmp() throws SQLException {
-		empSql.read();
+	public void readEmp(String id) throws SQLException {
+		empSql.read(id);
 	}
-
+	
+	public void readAllEmp() throws SQLException {
+		empSql.readAll();
+	}
+	
 	public void updateEmp(String id) throws SQLException {
 		String newName, newRole;
 		System.out.println("Enter new details:");
@@ -40,13 +44,5 @@ public class Service {
 
 	public void deleteEmp(String id) throws SQLException {
 		empSql.delete(id);
-	}
-
-	public void searchEmpById(String id) throws SQLException {
-		empSql.searchById(id);
-	}
-
-	public void searchEmpByName(String name) throws SQLException {
-		empSql.searchByName(name);
 	}
 }

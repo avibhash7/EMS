@@ -18,8 +18,7 @@ public class DataSql {
 
 	public void create(Employee emp) throws SQLException{
 		
-		Connection conn = empConnect.getConn();
-			
+			Connection conn = empConnect.getConn();
 			String sql = "INSERT INTO employees (id, name, role) VALUES (?, ?, ?)";
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -33,11 +32,24 @@ public class DataSql {
 			}
 
 	}
+	
+	public void read(String id) throws SQLException {
+		Connection conn = empConnect.getConn();
+		String sql = "Select id, name, role from employees WHERE id=" + id;
 
-	public void read()  throws SQLException {
+		PreparedStatement statement = conn.prepareStatement(sql);
+
+		ResultSet result = statement.executeQuery(sql);
+
+		while (result.next()) {
+			System.out.println(result.getString("id") + " **** " + result.getString("name") + " **** "
+					+ result.getString("role"));
+		}
+	}
+
+	public void readAll() throws SQLException {
 			
 			Connection conn = empConnect.getConn();
-		
 			String sql = "select * from employees";
 
 			Statement statement = conn.createStatement();
@@ -52,8 +64,8 @@ public class DataSql {
 			}
 	}
 
-	public void update(String id, String name, String role) {
-		try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+	public void update(String id, String name, String role) throws SQLException {
+			Connection conn = empConnect.getConn();
 			String sql = "UPDATE employees SET name=?, role=? WHERE id=?";
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -65,15 +77,11 @@ public class DataSql {
 			if (rowsUpdated > 0) {
 				System.out.println("Record updated successfully!");
 			}
-
-		} catch (SQLException exc) {
-			exc.printStackTrace();
-		}
-
 	}
 
-	public void delete(String id) {
-		try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+	public void delete(String id) throws SQLException {
+		
+			Connection conn = empConnect.getConn();
 			String sql = "DELETE from employees WHERE id=?";
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -84,45 +92,5 @@ public class DataSql {
 				System.out.println("Record deleted successfully!");
 			}
 
-		} catch (SQLException exc) {
-			exc.printStackTrace();
-		}
-
-	}
-
-	public void searchById(String id) {
-		try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
-			String sql = "Select id, name, role from employees WHERE id=" + id;
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-
-			ResultSet result = statement.executeQuery(sql);
-
-			while (result.next()) {
-				System.out.println(result.getString("id") + " **** " + result.getString("name") + " **** "
-						+ result.getString("role"));
-			}
-
-		} catch (SQLException exc) {
-			exc.printStackTrace();
-		}
-	}
-
-	public void searchByName(String name) {
-		try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
-			String sql = "Select id, name, role from employees WHERE name=" + name;
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-
-			ResultSet result = statement.executeQuery(sql);
-
-			while (result.next()) {
-				System.out.println(result.getString("id") + " **** " + result.getString("name") + " **** "
-						+ result.getString("role"));
-			}
-
-		} catch (SQLException exc) {
-			exc.printStackTrace();
-		}
 	}
 }
