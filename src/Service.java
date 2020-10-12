@@ -24,8 +24,8 @@ public class Service {
 		empSql.create(emp);
 	}
 
-	public void readEmp(String id) throws SQLException {
-		empSql.read(id);
+	public Employee readEmp(String id) throws SQLException {
+		return empSql.read(id);
 	}
 	
 	public void readAllEmp() throws SQLException {

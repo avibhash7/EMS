@@ -47,7 +47,7 @@ public class Presentation {
 			case 2: {
 				System.out.println("Enter the Employee ID to be read:");
 				id = s.nextLine();
-				empService.readEmp(id);
+				System.out.println(empService.readEmp(id).getId() + " **** " + empService.readEmp(id).getName() + " **** " + empService.readEmp(id).getRole());
 				break;
 			}
 			case 3: {
@@ -64,6 +64,7 @@ public class Presentation {
 			}
 			case 5: {
 				empService.readAllEmp();
+				break;
 			}
 			case 6: {
 				System.out.println("Thank you for using this system :)");

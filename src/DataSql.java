@@ -1,7 +1,6 @@
 //Database
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +9,7 @@ import java.sql.Statement;
 public class DataSql {
 
 	
-	DbConnection empConnect = new DbConnection();
+	DatabaseConnection empConnect = new DatabaseConnection();
 	
 	String dbURL = "jdbc:mysql://localhost:3307/demo";
 	String username = "root";
@@ -19,13 +18,10 @@ public class DataSql {
 	public void create(Employee emp) throws SQLException{
 		
 			Connection conn = empConnect.getConn();
-			String sql = "INSERT INTO employees (id, name, role) VALUES (?, ?, ?)";
-
+			
+			String sql = "Insert into employees values('"+emp.getId()+"','"+emp.getName()+"','"+emp.getRole()+"')";
+			
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, emp.getId());
-			statement.setString(2, emp.getName());
-			statement.setString(3, emp.getRole());
-
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
 				System.out.println("Record added successfully!");
@@ -33,18 +29,20 @@ public class DataSql {
 
 	}
 	
-	public void read(String id) throws SQLException {
+	public Employee read(String id) throws SQLException {
 		Connection conn = empConnect.getConn();
 		String sql = "Select id, name, role from employees WHERE id=" + id;
-
+		
+		Employee emp = new Employee();
 		PreparedStatement statement = conn.prepareStatement(sql);
 
 		ResultSet result = statement.executeQuery(sql);
-
+		emp.id = id;
 		while (result.next()) {
-			System.out.println(result.getString("id") + " **** " + result.getString("name") + " **** "
-					+ result.getString("role"));
+            emp.setName(result.getString("name"));
+            emp.setRole(result.getString("role"));
 		}
+		return emp;
 	}
 
 	public void readAll() throws SQLException {

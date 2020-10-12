@@ -1,5 +1,5 @@
 import java.sql.*;
-public class DbConnection {
+public class DatabaseConnection {
 	
 	 static Connection con=null;
 	 
@@ -11,7 +11,7 @@ public class DbConnection {
 			
 	        try
 	        {
-	            Class.forName("com.mysql.jdbc.Driver");
+	            Class.forName("com.mysql.cj.jdbc.Driver");
 	            con=DriverManager.getConnection(dbURL, username, password);
 	        }
 	        catch(Exception e)
