@@ -1,16 +1,19 @@
 //Data Interface
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface Data {
 
-	public void create(Employee emp);
+	public int create(Employee emp) throws SQLException;
 
-	public ArrayList<Employee> read();
+	public boolean check(String id) throws SQLException;
 
-	public void update(int index, Employee newEmp);
+	public Employee read(String id) throws SQLException;
 
-	public void delete(int index);
+	public ArrayList<Employee> readAll() throws SQLException;
 
-	public boolean checkDuplicate(String id);
+	public int update(Employee emp) throws SQLException;
+
+	public int delete(String id) throws SQLException;
 }

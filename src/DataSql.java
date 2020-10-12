@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class DataSql {
+public class DataSql implements Data {
 
 	Connection conn = DatabaseConnection.getConn();
 
+	@Override
 	public int create(Employee emp) throws SQLException {
 		String sql = "Insert into employees values(?,?,?)";
 		PreparedStatement statement = conn.prepareStatement(sql);
@@ -21,6 +22,7 @@ public class DataSql {
 		return statement.executeUpdate();
 	}
 
+	@Override
 	public boolean check(String id) throws SQLException {
 
 		boolean idExists = false;
@@ -35,6 +37,7 @@ public class DataSql {
 		return idExists;
 	}
 
+	@Override
 	public Employee read(String id) throws SQLException {
 
 		String sql = "Select id, name, role from employees WHERE id=?";
@@ -53,6 +56,7 @@ public class DataSql {
 		return emp;
 	}
 
+	@Override
 	public ArrayList<Employee> readAll() throws SQLException {
 
 		String sql = "select * from employees";
@@ -69,6 +73,7 @@ public class DataSql {
 		return list;
 	}
 
+	@Override
 	public int update(Employee emp) throws SQLException {
 
 		String sql = "UPDATE employees SET name=?, role=? WHERE id =?";
@@ -81,6 +86,7 @@ public class DataSql {
 		return statement.executeUpdate();
 	}
 
+	@Override
 	public int delete(String id) throws SQLException {
 
 		String sql = "DELETE from employees WHERE id=?";
