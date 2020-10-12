@@ -1,4 +1,5 @@
 //Presentation Layer
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -30,51 +31,89 @@ public class Presentation {
 			s.nextLine();
 			switch (choice) {
 			case 1: {
+				try {
 					System.out.println("Enter Employee ID:");
 					id = s.nextLine();
-					System.out.println("Enter Employee Name:");
-					name = s.nextLine();
-					System.out.println("Enter Role:");
-					role = s.nextLine();
-					System.out.println();
-					if(empService.inputEmp(id, name, role) > 0) {
-						System.out.println("Record added successfully");
-					};
+					if (empService.checkEmp(id) == true) {
+						System.out.println("The entered Employee ID already exists");
+					} else {
+						System.out.println("Enter Employee Name:");
+						name = s.nextLine();
+						System.out.println("Enter Role:");
+						role = s.nextLine();
+						System.out.println();
+						if (empService.createEmp(id, name, role) > 0) {
+							System.out.println("Record added successfully");
+						}
+					}
+				} catch (SQLException sqlex) {
+					System.out.print(sqlex.getMessage());
+				}
+
 			}
 				break;
 			case 2: {
-				System.out.println("Enter the Employee ID to be read:");
-				id = s.nextLine();
-				Employee emp = empService.readEmp(id);
-				System.out.println(emp.getId() + " **** " + emp.getName() + " **** " + emp.getRole());
+				try {
+					System.out.println("Enter the Employee ID to be read:");
+					id = s.nextLine();
+					if (empService.checkEmp(id) == false) {
+						System.out.println("The entered Employee ID does not exist");
+					} else {
+						Employee emp = empService.readEmp(id);
+						System.out.println(emp.getId() + " **** " + emp.getName() + " **** " + emp.getRole());
+					}
+
+				} catch (SQLException sqlex) {
+					System.out.print(sqlex.getMessage());
+				}
 				break;
 			}
 			case 3: {
-				System.out.println("Enter the Employee ID whose record is to be updated:");
-				id = s.nextLine();
-				System.out.println("Enter new details:");
-				System.out.println("Enter Employee Name:");
-				name = s.nextLine();
-				System.out.println("Enter Role:");
-				role = s.nextLine();
-				if(empService.updateEmp(id, name, role)>0) {
-					System.out.println("Record updated successfully");
-				};
+				try {
+					System.out.println("Enter the Employee ID whose record is to be updated:");
+					id = s.nextLine();
+					if (empService.checkEmp(id) == false) {
+						System.out.println("The entered Employee ID does not exist");
+					} else {
+						System.out.println("Enter new details:");
+						System.out.println("Enter Employee Name:");
+						name = s.nextLine();
+						System.out.println("Enter Role:");
+						role = s.nextLine();
+						if (empService.updateEmp(id, name, role) > 0) {
+							System.out.println("Record updated successfully");
+						}
+					}
+				} catch (SQLException sqlex) {
+					System.out.print(sqlex.getMessage());
+				}
 				break;
 			}
 			case 4: {
-				System.out.println("Enter the Employee ID whose record is to be deleted:");
-				id = s.nextLine();
-				if(empService.deleteEmp(id)>0) {;
-					System.out.println("Record deleted successfully!");		
+				try {
+					System.out.println("Enter the Employee ID whose record is to be deleted:");
+					id = s.nextLine();
+					if (empService.checkEmp(id) == false) {
+						System.out.println("The entered Employee ID does not exist");
+					} else {
+						if (empService.deleteEmp(id) > 0) {
+							System.out.println("Record deleted successfully!");
+						}
+					}
+				} catch (SQLException sqlex) {
+					System.out.print(sqlex.getMessage());
 				}
 				break;
 			}
 			case 5: {
-				ArrayList<Employee> list = empService.readAllEmp();
-				System.out.println("\nID **** NAME **** ROLE\n");
-				for(Employee emp: list) {
-					System.out.println(emp.getId() + " **** " + emp.getName() + " **** " + emp.getRole());
+				try {
+					ArrayList<Employee> list = empService.readAllEmp();
+					System.out.println("\nID **** NAME **** ROLE\n");
+					for (Employee emp : list) {
+						System.out.println(emp.getId() + " **** " + emp.getName() + " **** " + emp.getRole());
+					}
+				} catch (SQLException sqlex) {
+					System.out.print(sqlex.getMessage());
 				}
 				break;
 			}
