@@ -1,6 +1,6 @@
 //Presentation Layer
-
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Presentation {
@@ -30,40 +30,52 @@ public class Presentation {
 			s.nextLine();
 			switch (choice) {
 			case 1: {
-				System.out.println("Enter Employee ID:");
-				id = s.nextLine();
-				if (empService.check(id) == false) {
-					System.out.println("This Employee ID already exists.");
-				} else {
+					System.out.println("Enter Employee ID:");
+					id = s.nextLine();
 					System.out.println("Enter Employee Name:");
 					name = s.nextLine();
 					System.out.println("Enter Role:");
 					role = s.nextLine();
 					System.out.println();
-					empService.inputEmp(id, name, role);
-				}
+					if(empService.inputEmp(id, name, role) > 0) {
+						System.out.println("Record added successfully");
+					};
 			}
 				break;
 			case 2: {
 				System.out.println("Enter the Employee ID to be read:");
 				id = s.nextLine();
-				System.out.println(empService.readEmp(id).getId() + " **** " + empService.readEmp(id).getName() + " **** " + empService.readEmp(id).getRole());
+				Employee emp = empService.readEmp(id);
+				System.out.println(emp.getId() + " **** " + emp.getName() + " **** " + emp.getRole());
 				break;
 			}
 			case 3: {
 				System.out.println("Enter the Employee ID whose record is to be updated:");
 				id = s.nextLine();
-				empService.updateEmp(id);
+				System.out.println("Enter new details:");
+				System.out.println("Enter Employee Name:");
+				name = s.nextLine();
+				System.out.println("Enter Role:");
+				role = s.nextLine();
+				if(empService.updateEmp(id, name, role)>0) {
+					System.out.println("Record updated successfully");
+				};
 				break;
 			}
 			case 4: {
 				System.out.println("Enter the Employee ID whose record is to be deleted:");
 				id = s.nextLine();
-				empService.deleteEmp(id);
+				if(empService.deleteEmp(id)>0) {;
+					System.out.println("Record deleted successfully!");		
+				}
 				break;
 			}
 			case 5: {
-				empService.readAllEmp();
+				ArrayList<Employee> list = empService.readAllEmp();
+				System.out.println("\nID **** NAME **** ROLE\n");
+				for(Employee emp: list) {
+					System.out.println(emp.getId() + " **** " + emp.getName() + " **** " + emp.getRole());
+				}
 				break;
 			}
 			case 6: {

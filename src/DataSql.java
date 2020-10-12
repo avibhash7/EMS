@@ -5,32 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class DataSql {
 
-	
-	DatabaseConnection empConnect = new DatabaseConnection();
-	
-	String dbURL = "jdbc:mysql://localhost:3307/demo";
-	String username = "root";
-	String password = "AviHoney";
-
-	public void create(Employee emp) throws SQLException{
-		
-			Connection conn = empConnect.getConn();
+	public int create(Employee emp) throws SQLException{
+			Connection conn = DatabaseConnection.getConn();
 			
 			String sql = "Insert into employees values('"+emp.getId()+"','"+emp.getName()+"','"+emp.getRole()+"')";
-			
 			PreparedStatement statement = conn.prepareStatement(sql);
-			int rowsInserted = statement.executeUpdate();
-			if (rowsInserted > 0) {
-				System.out.println("Record added successfully!");
-			}
-
+			return statement.executeUpdate();
 	}
 	
 	public Employee read(String id) throws SQLException {
-		Connection conn = empConnect.getConn();
+		Connection conn = DatabaseConnection.getConn();
 		String sql = "Select id, name, role from employees WHERE id=" + id;
 		
 		Employee emp = new Employee();
@@ -45,50 +33,38 @@ public class DataSql {
 		return emp;
 	}
 
-	public void readAll() throws SQLException {
-			
-			Connection conn = empConnect.getConn();
+	public ArrayList<Employee> readAll() throws SQLException {
+		
+			Connection conn = DatabaseConnection.getConn();
 			String sql = "select * from employees";
-
+			ArrayList<Employee> list = new ArrayList<>();
 			Statement statement = conn.createStatement();
 
 			ResultSet result = statement.executeQuery(sql);
-
-			System.out.println("\nID **** NAME **** ROLE\n");
-
+			
 			while (result.next()) {
-				System.out.println(result.getString("id") + " **** " + result.getString("name") + " **** "
-						+ result.getString("role"));
+				Employee emp = new Employee(result.getString("id"), result.getString("name"), result.getString("role"));
+				list.add(emp);
 			}
+			
+			return list;
 	}
 
-	public void update(String id, String name, String role) throws SQLException {
-			Connection conn = empConnect.getConn();
-			String sql = "UPDATE employees SET name=?, role=? WHERE id=?";
-
+	public int update(Employee emp) throws SQLException {
+			Connection conn = DatabaseConnection.getConn();
+			String sql = "UPDATE employees SET name='" + emp.getName() + "', role='" + emp.getRole() + "' WHERE id=" + emp.getId();
+			
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, name);
-			statement.setString(2, role);
-			statement.setString(3, id);
-
-			int rowsUpdated = statement.executeUpdate();
-			if (rowsUpdated > 0) {
-				System.out.println("Record updated successfully!");
-			}
+			return statement.executeUpdate();	
 	}
 
-	public void delete(String id) throws SQLException {
+	public int delete(String id) throws SQLException {
 		
-			Connection conn = empConnect.getConn();
+			Connection conn = DatabaseConnection.getConn();
 			String sql = "DELETE from employees WHERE id=?";
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, id);
-
-			int rowsUpdated = statement.executeUpdate();
-			if (rowsUpdated > 0) {
-				System.out.println("Record deleted successfully!");
-			}
-
+			return statement.executeUpdate();		
 	}
 }

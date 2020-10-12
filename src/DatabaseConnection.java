@@ -1,9 +1,10 @@
+//Returns a Connection object
 import java.sql.*;
 public class DatabaseConnection {
 	
 	 static Connection con=null;
 	 
-	    public Connection getConn()
+	    public static Connection getConn()
 	    {
 	    	String dbURL = "jdbc:mysql://localhost:3307/demo";
 			String username = "root";

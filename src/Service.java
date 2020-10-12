@@ -1,6 +1,7 @@
 //Service Layer
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Service {
@@ -11,38 +12,25 @@ public class Service {
 
 	Scanner s = new Scanner(System.in);
 
-	public boolean check(String id) {
-		if (empData.checkDuplicate(id) == false) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	public void inputEmp(String id, String name, String role) throws SQLException {
+	public int inputEmp(String id, String name, String role) throws SQLException {
 		Employee emp = new Employee(id, name, role);
-		empSql.create(emp);
+		return empSql.create(emp);
 	}
 
 	public Employee readEmp(String id) throws SQLException {
 		return empSql.read(id);
 	}
 	
-	public void readAllEmp() throws SQLException {
-		empSql.readAll();
+	public ArrayList<Employee> readAllEmp() throws SQLException {
+		return empSql.readAll();
 	}
 	
-	public void updateEmp(String id) throws SQLException {
-		String newName, newRole;
-		System.out.println("Enter new details:");
-		System.out.println("Enter Employee Name:");
-		newName = s.nextLine();
-		System.out.println("Enter Role:");
-		newRole = s.nextLine();
-		empSql.update(id, newName, newRole);
+	public int updateEmp(String id, String name, String role) throws SQLException {
+		Employee emp = new Employee(id, name, role);
+		return empSql.update(emp);
 	}
 
-	public void deleteEmp(String id) throws SQLException {
-		empSql.delete(id);
+	public int deleteEmp(String id) throws SQLException {
+		return empSql.delete(id);
 	}
 }
